@@ -1,0 +1,42 @@
+use myDatabase;   // Switch to or create database
+
+db.createCollection("users");   // Create collection named 'users'
+
+db.users.insertOne({
+    name: "Pratik",
+    email: "pratik@example.com",
+    age: 24,
+    address: "Sangamner, MH, India"
+});
+
+db.users.insertMany([
+    { name: "Amit", email: "amit@example.com", age: 28, address: "Pune" },
+    { name: "Sneha", email: "sneha@example.com", age: 22, address: "Mumbai" }
+]);
+
+// Find all users
+db.users.find();
+
+// Find one user
+db.users.findOne({ name: "Pratik" });
+
+// Find users older than 25
+db.users.find({ age: { $gt: 25 } });
+
+// Update one user’s email
+db.users.updateOne(
+    { name: "Pratik" },
+    { $set: { email: "pratik.new@example.com" } }
+);
+
+// Update multiple users
+db.users.updateMany(
+    { age: { $lt: 25 } },
+    { $set: { status: "student" } }
+);
+
+// Delete one user
+db.users.deleteOne({ name: "Sneha" });
+
+// Delete all users from Pune
+db.users.deleteMany({ address: "Pune" });
